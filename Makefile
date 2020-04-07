@@ -7,7 +7,7 @@ __start__: uklad_rownan
 	./uklad_rownan
 
 uklad_rownan: obj/main.o obj/UkladRownanLiniowych.o obj/Macierz.o obj/Wektor.o
-	g++ -Wall -pedantic -o uklad_rownan obj/main.o obj/Wektor.o\
+	g++ -g -Wall -pedantic -o uklad_rownan obj/main.o obj/Wektor.o\
                                    obj/Macierz.o obj/UkladRownanLiniowych.o
 
 obj/main.o: src/main.cpp inc/UkladRownanLiniowych.hh inc/Macierz.hh inc/Wektor.hh\

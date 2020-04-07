@@ -1,42 +1,39 @@
 #ifndef MACIERZ_HH
 #define MACIERZ_HH
 
+#include "Wektor.hh"
 #include "rozmiar.h"
+
 #include <iostream>
 
-
 /*
- *  Tutaj trzeba opisac klase. Jakie pojecie modeluje ta klasa
- *  i jakie ma glowne cechy.
+ * Modeluje pojecie macierzy, ktorej
+ * glowna cecha sa jej kolumny.
  */
 class Macierz {
-  /*
-   *  Tutaj trzeba wstawic definicje odpowiednich pol i metod prywatnych
-   */
-  public:
-  /*
-   *  Tutaj trzeba wstawic definicje odpowiednich metod publicznych
-   */    
+  
+  Wektor kolumny [ROZMIAR];   // Kolumny macierzy
+ 
+  public: 
+
+  Wektor get_kolumna (const unsigned int indeks) const {    // Umozliwia czytanie kolumn macierzy
+    return kolumny [indeks]; }
+
+  void set_kolumna (const unsigned int indeks, const Wektor Kol) {    // Umozliwia wczytywanie kolumn macierzy
+    kolumny [indeks] = Kol; }    
+
+  Macierz elementy2 () const; 
+
 };
 
+/*
+ * Wczytuje kolumny macierzy ze strumienia wejsciowego.
+ */ 
+std::ostream & operator << (std::ostream & Str, const Macierz & Mac);
 
 /*
- * To przeciazenie trzeba opisac. Co ono robi. Jaki format
- * danych akceptuje. Jakie jest znaczenie parametrow itd.
- * Szczegoly dotyczace zalecen realizacji opisow mozna
- * znalezc w pliku:
- *    ~bk/edu/kpo/zalecenia.txt 
- */
-std::istream& operator >> (std::istream &Strm, Macierz &Mac);
-
-/*
- * To przeciazenie trzeba opisac. Co ono robi. Jaki format
- * danych akceptuje. Jakie jest znaczenie parametrow itd.
- * Szczegoly dotyczace zalecen realizacji opisow mozna
- * znalezc w pliku:
- *    ~bk/edu/kpo/zalecenia.txt 
- */
-std::ostream& operator << (std::ostream &Strm, const Macierz &Mac);
-
+ * Zapisuje kolumny macierzy na strumieniu wyjsciowym. 
+ */ 
+std::istream & operator >> (std::istream & Str, Macierz & Mac);
 
 #endif

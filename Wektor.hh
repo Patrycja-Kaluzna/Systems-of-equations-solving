@@ -2,40 +2,46 @@
 #define WEKTOR_HH
 
 #include "rozmiar.h"
+
 #include <iostream>
 
-
 /*
- *  Tutaj trzeba opisac klase. Jakie pojecie modeluje ta klasa
- *  i jakie ma glowne cechy.
- */
+ * Modeluje pojecie wektora, ktorego
+ * glowna cecha sa jego wspolrzedne.
+ */ 
 class Wektor {
-  /*
-   *  Tutaj trzeba wstawic definicje odpowiednich pol i metod prywatnych
-   */
+
+  double wspolrzedne [ROZMIAR];   // Wspolrzedne wektora
+
   public:
-  /*
-   *  Tutaj trzeba wstawic definicje odpowiednich metod publicznych
-   */    
+
+  double get_wspolrzedna (const unsigned int indeks) const {    // Umozliwia czytanie wspolrzednych wektora
+    return wspolrzedne [indeks]; }                              
+
+  void set_wspolrzedna (const unsigned int indeks, const double wsp) {    // Umozliwia wczytywanie wspolrzednych wektora
+    wspolrzedne [indeks] = wsp; }                                         
+
+  Wektor operator + (const Wektor Wek) const;   // Realizuje dodawanie wektorow
+
+  Wektor operator - (const Wektor Wek) const;   // Realizuje odejmowanie wektorow
+
+  double operator * (const Wektor Wek) const;   // Realizuje mnozenie (iloczyn skalarny) wektorow
+
+  Wektor operator * (const double lic) const;   // Realizuje mnozenie wektora przez liczbe
+
+  Wektor operator / (const double lic) const;   // Realizuje dzielenie wektora przez liczbe
+
+  Wektor iloczyn_wektorowy (Wektor Wek) const;
 };
 
+/*
+ * Wczytuje wspolrzedne wektora ze strumienia wejsciowego.
+ */ 
+std::istream & operator >> (std::istream & Str, Wektor & Wek);
 
 /*
- * To przeciazenie trzeba opisac. Co ono robi. Jaki format
- * danych akceptuje. Jakie jest znaczenie parametrow itd.
- * Szczegoly dotyczace zalecen realizacji opisow mozna
- * znalezc w pliku:
- *    ~bk/edu/kpo/zalecenia.txt 
+ * Zapisuje wspolrzedne wektora na strumieniu wyjsciowym.
  */
-std::istream& operator >> (std::istream &Strm, Wektor &Wek);
-
-/*
- * To przeciazenie trzeba opisac. Co ono robi. Jaki format
- * danych akceptuje. Jakie jest znaczenie parametrow itd.
- * Szczegoly dotyczace zalecen realizacji opisow mozna
- * znalezc w pliku:
- *    ~bk/edu/kpo/zalecenia.txt 
- */
-std::ostream& operator << (std::ostream &Strm, const Wektor &Wek);
+std::ostream & operator << (std::ostream & Str, const Wektor & Wek);
 
 #endif
