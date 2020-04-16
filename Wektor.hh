@@ -4,6 +4,7 @@
 #include "rozmiar.h"
 
 #include <iostream>
+#include <cmath>
 
 /*
  * Modeluje pojecie wektora, ktorego
@@ -15,11 +16,11 @@ class Wektor {
 
   public:
 
-  double get_wspolrzedna (const unsigned int indeks) const {    // Umozliwia czytanie wspolrzednych wektora
-    return wspolrzedne [indeks]; }                              
+  double operator [] (const unsigned int indeks) const {    // Umozliwia czytanie wspolrzednych wektora
+    return wspolrzedne[indeks];}   
 
-  void set_wspolrzedna (const unsigned int indeks, const double wsp) {    // Umozliwia wczytywanie wspolrzednych wektora
-    wspolrzedne [indeks] = wsp; }                                         
+  double & operator [] (const unsigned int indeks) {    // Umozliwia wczytywanie wspolrzednych wektora
+    return wspolrzedne[indeks];}                                        
 
   Wektor operator + (const Wektor Wek) const;   // Realizuje dodawanie wektorow
 
@@ -31,6 +32,9 @@ class Wektor {
 
   Wektor operator / (const double lic) const;   // Realizuje dzielenie wektora przez liczbe
 
+  Wektor iloczyn_wektorowy (const Wektor Wek) const;    // Relizuje mnozenie (iloczyn wektorowy) wektorow
+
+  double dlugosc_wektora () const;    // Oblicza dlugosc wektora
 };
 
 /*

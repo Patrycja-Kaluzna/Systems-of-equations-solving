@@ -10,7 +10,7 @@
  *            wywołana ta metoda
  * Zwraca:
  *      Wektor, ktorego wspolrzedne sa suma 
- *      wspolrzednych wektorow bedacych skaldnikami.
+ *      wspolrzednych wektorow bedacych sklaldnikami.
  */
 Wektor Wektor::operator + (const Wektor Wek) const
 {
@@ -20,8 +20,8 @@ Wektor Wektor::operator + (const Wektor Wek) const
     
     for (i = 0; i < ROZMIAR; i++)
     {
-        wsp = this->get_wspolrzedna(i) + Wek.get_wspolrzedna(i);
-        pomWek.set_wspolrzedna (i, wsp);
+        wsp = wspolrzedne[i] + Wek[i];
+        pomWek[i] = wsp;
     }
 
     return pomWek;
@@ -51,8 +51,8 @@ Wektor Wektor::operator - (const Wektor Wek) const
 
     for (i = 0; i < ROZMIAR; i++)
     {
-        wsp = this->get_wspolrzedna(i) - Wek.get_wspolrzedna(i);
-        pomWek.set_wspolrzedna (i, wsp);
+        wsp = wspolrzedne[i] - Wek[i];
+        pomWek[i] = wsp;
     }
 
     return pomWek;
@@ -81,7 +81,7 @@ double Wektor::operator * (const Wektor Wek) const
 
     for (i = 0; i < ROZMIAR; i++)
     {
-        lic += this->get_wspolrzedna(i) * Wek.get_wspolrzedna(i);
+        lic += wspolrzedne[i] * Wek[i];
     }
 
     return lic;
@@ -111,8 +111,8 @@ Wektor Wektor::operator * (const double lic) const
 
     for (i = 0; i < ROZMIAR; i++)
     {
-        wsp = this->get_wspolrzedna(i) * lic;
-        pomWek.set_wspolrzedna(i, wsp);
+        wsp = wspolrzedne[i] * lic;
+        pomWek[i] = wsp;
     }
 
     return pomWek;
@@ -150,8 +150,8 @@ Wektor Wektor::operator / (const double lic) const
     {
         for (i = 0; i < ROZMIAR; i++)
         {
-            wsp = this->get_wspolrzedna(i) / lic;
-            pomWek.set_wspolrzedna(i, wsp);
+            wsp = wspolrzedne[i] / lic;
+            pomWek[i] = wsp;
         }
     } else {
         std::cout << "Blad: dzielenie przez zero." << std::endl;
@@ -190,7 +190,7 @@ std::istream & operator >> (std::istream & Str, Wektor & Wek)
     for (i = 0; i < ROZMIAR; i++)
     {
         Str >> pom;
-        Wek.set_wspolrzedna(i , pom);
+        Wek[i] = pom;
     }
 
     return Str;
@@ -222,8 +222,69 @@ std::ostream & operator << (std::ostream & Str, const Wektor & Wek)
 
     for (i = 0; i < ROZMIAR; i++) 
     {
-        Str << Wek.get_wspolrzedna(i) << " ";
+        Str << Wek[i] << " ";
     }
 
     return Str;
+}
+
+
+
+/*
+ * Metoda realizuje mnozenie (iloczyn wektorowy)
+ * wektorow.
+ * 
+ * Argument:
+ *      Wek - wektor, ktorego iloczyn wektorowy
+ *            z wektorem, bedacym obiektem klasy
+ *            Wektor, dla ktorego zostanie wywolana
+ *            ta metoda, zostanie obliczony.
+ * 
+ * Warunek wstępny:
+ *      - Wektory bedace czynnikami nie moga miec
+ *        mniej ani wiecej niz trzy wspolrzedne.
+ * 
+ * Zwraca: 
+ *      Wektor bedacy iloczynem wektorowym czynnikow.
+ */
+Wektor Wektor::iloczyn_wektorowy (const Wektor Wek) const
+{
+    unsigned int i, j, k;
+    double x, y, z;
+    Wektor pomWek;
+
+    i = 0;
+    j = 1;
+    k = 2;
+
+    x = wspolrzedne[j] * Wek[k] - wspolrzedne[k] * Wek[j];
+    y = -1 * (wspolrzedne[i] * Wek[k] - wspolrzedne[k] * Wek[i]);
+    z = wspolrzedne[i] * Wek[j] - wspolrzedne[j] * Wek[i];
+
+    pomWek[i] = x;
+    pomWek[j] = y;
+    pomWek[k] = z;
+
+    return pomWek;
+}
+
+
+
+/*
+ * Metoda oblicza dlugosc wektora
+ * korzystajac z przeciazenia 
+ * operatora mnozenia dla 
+ * iloczynu skalarnego.
+ * 
+ * Zwraca:
+ *      Liczbe bedaca rowna co do
+ *      wartosci dlugosci wektora.
+ */ 
+double Wektor::dlugosc_wektora () const
+{
+    double pomd;
+
+    pomd = sqrt(*this * *this);
+
+    return pomd;
 }
